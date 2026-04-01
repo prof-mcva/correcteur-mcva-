@@ -13,7 +13,20 @@
 """
 
 import streamlit as st
-import google.generativeai as genai
+import base64
+from pathlib import Path
+
+# FAVICON pour l'icône du raccourci (Android)
+icon_filename = "logo.png.png"
+icon_path = Path(icon_filename)
+
+if icon_path.exists():
+    b64 = base64.b64encode(icon_path.read_bytes()).decode()
+    st.markdown(
+        f"<link rel='icon' href='data:image/png;base64,{b64}' />",
+        unsafe_allow_html=True
+    )
+    import google.generativeai as genai
 from PIL import Image
 import fitz
 from docx import Document as DocxDocument
