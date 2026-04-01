@@ -888,7 +888,36 @@ def main():
                 mime="text/csv",
                 use_container_width=True,
             )
+            # Export Google Docs (fichier texte formaté)
+            rapport = f"RAPPORT DE CORRECTION — {exam_name}\n"
+            rapport += f"Classe : {classe}\n"
+            rapport += f"Date : {datetime.now().strftime('%d/%m/%Y')}\n"
+            rapport += f"={'='*50}\n\n"
+            for r in res:
+                rapport += f"{'─'*40}\n"
+                rapport += f"{r['id']} — Note : {r['note_20']}/20\n"
+                rapport += f"Score brut : {r['score']}/{r['total']}\n"
+                rapport += f"\nAppréciation : {r['appreciation']}\n"
+                rapport += f"Points forts : {r['points_forts']}\n"
+                rapport += f"À améliorer : {r['axes']}\n"
+                rapport += f"Conseil : {r['conseil']}\n\n"
+                if r.get('questions'):
+                    rapport += "Détail :\n"
+                    for q in r['questions']:
+                        rapport += f"  Q{q.get('numero','?')} : {q.get('points_obtenus',0)}/{q.get('points_max',0)} — {q.get('commentaire','')}\n"
+                rapport += "\n"
+            rapport += f"{'='*50}\n"
+            notes_list = [r['note_20'] for r in res]
+            rapport += f"MOYENNE : {sum(notes_list)/len(notes_list):.1f}/20\n"
+            rapport += f"MAX : {max(notes_list)}/20 | MIN : {min(notes_list)}/20\n"
 
+            st.download_button(
+                "📥 Télécharger pour Google Docs",
+                data=rapport.encode('utf-8'),
+                file_name=f"rapport_{datetime.now():%Y%m%d}.txt",
+                mime="text/plain",
+                use_container_width=True,
+            )
             # Bouton reset
             st.markdown("---")
             if st.button(
