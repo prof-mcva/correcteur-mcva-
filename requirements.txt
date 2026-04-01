@@ -1,0 +1,9 @@
+streamlit
+google-generativeai
+Pillow
+PyMuPDF
+python-docx
+pandas
+openpyxl
+opencv-python-headless
+numpy
