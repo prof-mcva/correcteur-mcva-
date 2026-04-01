@@ -418,10 +418,12 @@ def main():
     # ━━━━━━━━━━━━━━━━━━━━
     #  EN-TÊTE
     # ━━━━━━━━━━━━━━━━━━━━
-    st.markdown("# 📝 Correcteur MCVA Mobile")
-    st.markdown(
-        "*Gratuit · RGPD OK · Export Excel*"
-    )
+     col_logo, col_titre = st.columns([1, 3])
+    with col_logo:
+        st.image("logo.png.png", width=100)
+    with col_titre:
+        st.markdown("# 📝 Correcteur MCVA")
+        st.markdown("*Gratuit · RGPD OK · Export Excel*") 
 
     # ━━━━━━━━━━━━━━━━━━━━
     #  SIDEBAR
